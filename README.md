@@ -1,4 +1,6 @@
-# fastjson-1.2.60-rce
+# Fastjson <= 1.2.60 反序列化漏洞 
+
+## By Pass Auto Block List with 2 Gadgets (JNDIConfiguration、OracleManagedConnectionFactory )
 
 ![](./Fastjson-1.2.60-RCE.gif)
 
